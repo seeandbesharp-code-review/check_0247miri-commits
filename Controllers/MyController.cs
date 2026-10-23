@@ -82,8 +82,8 @@ namespace MyApiProject.Controllers
 
         }
 
-        [HttpPut]
-        public ActionResult<UserDetails> Put([FromBody] UserDetails userToUpdate)
+        [HttpPut("{id}")]
+        public ActionResult<UserDetails> Put(int id,[FromBody] UserDetails userToUpdate)
         {
 
             if (!ModelState.IsValid) // Check if the validation checks passed
@@ -97,7 +97,7 @@ namespace MyApiProject.Controllers
                 while ((currentUserInFile = reader.ReadLine()) != null)
                 {
                     UserDetails user = JsonSerializer.Deserialize<UserDetails>(currentUserInFile);
-                    if (user.UserId == userToUpdate.UserId)
+                    if (user.UserId == id)
                         textToReplace = currentUserInFile;
                 }
             }

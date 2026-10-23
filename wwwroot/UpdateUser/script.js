@@ -33,13 +33,11 @@ updateButton.addEventListener('click', async () => {
             throw Error("Unvalid details!")
     }
     catch (Error) {
-        alert(Error + "  Please enter again your details! Pay attention the explanation")
+        alert(Error + "  Please enter again your details!")
         return;
     }
     const dataPost = await JSON.parse(localStorage.getItem('dataPost'))
-
     const id = dataPost['userId']
-    alert(id)
     const dataPut =
     {
         email: email.value,
@@ -51,7 +49,7 @@ updateButton.addEventListener('click', async () => {
         title: "Updating a user"
     }
     console.log(dataPut)
-    const response = await fetch('/api/My',
+    const response = await fetch('/api/My/'+id,
         {
             method: 'PUT',
             headers: {

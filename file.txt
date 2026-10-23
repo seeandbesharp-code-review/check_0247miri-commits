@@ -1,3 +1,1 @@
-{"Email":"0247miri@gmail.com","Password":"123456","FirstName":"\u05DE\u05D9\u05E8\u05D9","LastName":"\u05E9\u05DD \u05DE\u05E9\u05E4\u05D7\u05D4 \u05DE\u05E2\u05D5\u05D3\u05DB\u05DF","UserId":1,"Title":"Updating a user","Body":"User updated details "}
-{"Email":"a@g.c","Password":"1234","FirstName":"\u05DE\u05D9\u05E8\u05D9","LastName":"\u05D8\u05D5\u05DC\u05D3\u05E0\u05D5","UserId":2,"Title":"register, user details","Body":"This is a register action"}
-{"Email":"a@b.c","Password":"1234","FirstName":"\u05D9\u05Eש2\u05DC","LastName":"\u05D8\u05DC\u05D9","UserId":3,"Title":"register, user details","Body":"This is a register action"}
+{"Email":"0247miri@gmail.com","Password":"1234","FirstName":"12","LastName":"34","UserId":1,"Title":"Updating a user","Body":"User updated details "}
