@@ -19,3 +19,7 @@ button{
     height:30px;
     background-color: aqua;
 }
+#passwordStrength {
+    background-color: blue;
+    width:300px;
+}

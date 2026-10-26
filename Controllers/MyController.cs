@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
-
+using Zxcvbn;
 
 namespace MyApiProject.Controllers
 {
@@ -33,6 +34,10 @@ namespace MyApiProject.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var result = Core.EvaluatePassword(userDetails.Password);
+
+            if (result.Score < 3)
+                return BadRequest("Check your password strength");
             // נבצע בדיקה שהמייל אינו קיים במערכת עדיין
             using (StreamReader reader = System.IO.File.OpenText("file.txt"))
             {
@@ -55,7 +60,32 @@ namespace MyApiProject.Controllers
 
 
         }
+        [HttpPost("passwordStrength")]
+        public IActionResult Post([FromBody] Password password)
+        {
 
+            var result = Core.EvaluatePassword(password.Password_);
+
+            int score = result.Score;                  
+            var warning = result.Feedback.Warning;
+            var suggestions = result.Feedback.Suggestions; 
+            if (result.Score < 3)
+            {
+                return BadRequest(new
+                {
+                    message = " Your password is too weak",
+                    score = result.Score,
+                    warning = result.Feedback.Warning,
+                    suggestions = result.Feedback.Suggestions
+                });
+            }
+            return Ok(new
+            {
+                message = " Good password ",
+                score = result.Score,
+                
+            });
+        }
 
         [HttpPost("login")]
         public ActionResult<UserDetails> Post([FromBody] LoginDetails loginDetails)

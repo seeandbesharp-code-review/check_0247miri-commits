@@ -5,6 +5,8 @@ const email = document.querySelector("#email")
 const psswrd = document.querySelector("#password")
 const firstN = document.querySelector("#firstName")
 const lastN = document.querySelector("#lastName")
+const progressPassword = document.querySelector("progress")
+const passwordStrength = document.getElementById("passwordStrength")
 
 document.addEventListener('DOMContentLoaded', async function () {
     
@@ -17,16 +19,19 @@ document.addEventListener('DOMContentLoaded', async function () {
     enterMessage.textContent = `שלום ${firstName}, מייד נצלול פנימה`
 
 })
- function updatDetailsButton() {
+function updatDetailsButton() {
     const inputBtns = document.querySelectorAll('input')
     inputBtns.forEach(input => {
         input.style.display = 'block'
+    });
+        passwordStrength.style.display = 'block'
+        progressPassword.style.display = 'block'
+        updateButton.style.display = 'block'
+ }
+     
+    
 
-    }
-    );
-     updateButton.style.display = 'block'
 
-}
 updateButton.addEventListener('click', async () => {
     try {
         if (psswrd.value.length < 4 || firstN.value.length < 2 || lastN.value.length < 2)
@@ -79,3 +84,40 @@ updateButton.addEventListener('click', async () => {
 }
 )  
 
+passwordStrength.addEventListener('click', async (e) => {
+
+
+    const postData = {
+        password_: psswrd.value,
+        title: 'Check passwords strength',
+        body: 'This is a sub validation action'
+
+    };
+    const response = await fetch('/api/My/passwordStrength',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        });
+
+
+    let score = 0;
+    const dataPost = await response.json()
+    if (!response.ok) {
+        score = dataPost.score;
+        const message = dataPost.message;
+        const suggestions = dataPost.suggestions;
+        const warning = dataPost.warning;
+        alert("message:" + message + "suggestions: " + suggestions + "warning: " + warning)
+    }
+    else {
+        score = dataPost.score;
+        const message = dataPost.message;
+        alert("message:" + message)
+    }
+
+    progressPassword.value = score;
+
+})

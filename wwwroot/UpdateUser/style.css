@@ -24,7 +24,7 @@
     font-size:50px;
 
 }
-input, #updateButton {
+#file, input, #passwordStrength, #updateButton {
     margin: 5px;
     display: none;
 }
@@ -32,4 +32,8 @@ input, #updateButton {
 button {
     height: 30px;
     background-color: aqua;
+}
+#passwordStrength {
+    background-color: blue;
+    width: 300px;
 }

@@ -3,6 +3,11 @@ const psswrd = document.querySelector("#password")
 const firstN = document.querySelector("#firstName")
 const lastN = document.querySelector("#lastName")
 const registerButton = document.querySelector("#registerButton")
+const passwordStrength = document.getElementById("passwordStrength")
+const emailLog = document.querySelector("#emailLogin")
+const psswrdLog = document.querySelector("#passwordLogin")
+const loginButton = document.querySelector("#loginButton")
+const progressPassword = document.querySelector("progress")
 
 registerButton.addEventListener('click', async (e) => {
     try { 
@@ -47,10 +52,47 @@ registerButton.addEventListener('click', async (e) => {
     alert('User registered successfully!')
 
 })
-const emailLog = document.querySelector("#emailLogin")
-const psswrdLog = document.querySelector("#passwordLogin")
 
-const loginButton = document.querySelector("#loginButton")
+
+passwordStrength.addEventListener('click',async (e) => {
+
+  
+    const postData = {
+        password_: psswrd.value,
+        title: 'Check passwords strength',
+        body: 'This is a sub validation action'
+
+    };
+    const response = await fetch('/api/My/passwordStrength',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        });
+ 
+      
+    let score =0;
+    const dataPost = await response.json()
+    if (!response.ok) {
+        score = dataPost.score;
+       const message = dataPost.message;
+        const suggestions = dataPost.suggestions;
+        const warning = dataPost.warning;
+        alert("message:" + message + "suggestions: " + suggestions + "warning: "+warning)
+    }
+    else {
+        score = dataPost.score;
+        const message = dataPost.message;
+        alert("message:" + message )
+    }
+
+    progressPassword.value = score;
+
+})
+
+
 
 loginButton.addEventListener('click', async (e) => {
     try {
