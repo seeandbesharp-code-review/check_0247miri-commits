@@ -19,6 +19,8 @@ public class UserDetails
 
     public  int UserId { get; set; }
 
+    //Are Title and Body needed? They look like they came from a fetch example and are not user details,
+    //but now they are saved in file.txt for every user
     public  string Title { get; set; }
     public  string Body { get; set; }
 }

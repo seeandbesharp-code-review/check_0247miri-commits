@@ -8,9 +8,13 @@ namespace MyApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //"My" doesn't say what this controller handles. A clearer name is, for example, UsersController
+    //(the route would then be api/Users, so the fetch calls in wwwroot would change too)
     public class MyController : ControllerBase
     {
 
+        //The id should come from the route (GET api/My/5), so write [HttpGet("{id}")].
+        //Now it is read from the query string (api/My?id=5)
         [HttpGet]
         public ActionResult<UserDetails> Get(int id)
         {
@@ -24,6 +28,7 @@ namespace MyApiProject.Controllers
                         return Ok(user);
 
                 }
+                //When no user has this id, the request itself is fine, so return NotFound() (or NoContent()), not BadRequest
                 return BadRequest("A user hadn't found");
             }
         }
@@ -128,13 +133,18 @@ namespace MyApiProject.Controllers
                 {
                     UserDetails user = JsonSerializer.Deserialize<UserDetails>(currentUserInFile);
                     if (user.UserId == id)
+                    {
                         textToReplace = currentUserInFile;
+                        //fix: Found- break
+                        break;
+                    }
                 }
             }
 
             if (textToReplace != string.Empty)
             {
-                
+                //fix: Keep the id, otherwise the updated user is saved without it
+                userToUpdate.UserId = id;
                 string text = System.IO.File.ReadAllText("file.txt");
                 text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
                 System.IO.File.WriteAllText("file.txt", text);

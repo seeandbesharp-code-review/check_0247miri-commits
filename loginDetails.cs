@@ -2,6 +2,7 @@
 
 namespace MyApiProject.Controllers
 {
+    //In C#, a file is named after its type: LoginDetails.cs
     public class LoginDetails
     {
         [EmailAddress]
