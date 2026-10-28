@@ -1,2 +1,2 @@
 {"Email":"0247miri@gmail.com","Password":"1234","FirstName":"12","LastName":"34","UserId":1,"Title":"Updating a user","Body":"User updated details "}
-{"Email":"ABC@G.C","Password":"determinanta8080808","FirstName":"Miri","LastName":"Toledano","UserId":2,"Title":"Updating a user","Body":"User updated details "}
+{"Email":"ABC@G.C","Password":"עכידנאטינכעט","FirstName":"Miri","LastName":"Toledano","UserId":2,"Title":"Updating a user","Body":"User updated details "}
